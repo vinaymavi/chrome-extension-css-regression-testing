@@ -1,3 +1,16 @@
-/**
- * Created by vku131 on 6/3/17.
- */
+"use strict";
+
+class Project {
+    constructor(name) {
+        this.name = name;
+        this.db = new Db();
+    }
+
+    getByName(name) {
+
+    }
+
+    save() {
+        this.db.saveProject(this);
+    }
+}

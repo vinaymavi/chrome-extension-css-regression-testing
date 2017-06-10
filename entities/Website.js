@@ -16,7 +16,7 @@ class Website {
     }
 
     save() {
-        this.db.saveWebsite(this.toPlainObject());
+        return this.db.saveWebsite(this.toPlainObject());
     }
     toPlainObject(){
         var plainObject ={};

@@ -11,6 +11,6 @@ class Project {
     }
 
     save() {
-        this.db.saveProject(this);
+        return this.db.saveProject(this);
     }
 }

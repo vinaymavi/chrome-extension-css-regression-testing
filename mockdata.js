@@ -6,9 +6,12 @@ class MockData {
     crateMockData() {
         this.project = null;
         this.website = null;
-        this.createProject();
-        this.createWebsite();
-        return this.website;
+        return new Promise((resolve, reject)=> {
+            this.createProject();
+            this.createWebsite().then((website)=> {
+                resolve(website);
+            });
+        });
     }
 
     createProject() {
@@ -21,6 +24,6 @@ class MockData {
         const WEB_SITE_NAME = "MySite";
         const urls = ['http://localhost/index.html', 'http://localhost/aboutus.html', 'http://localhost/contactus.html'];
         this.website = new Website(this.project, WEB_SITE_NAME, urls);
-        this.website.save();
+        return this.website.save();
     }
 }

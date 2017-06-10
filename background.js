@@ -4,7 +4,7 @@
  */
 chrome.runtime.onMessage.addListener((msg, sender, resp)=> {
     /*TODO check condition for production environment.*/
-    var message = JSON.parse(msg);
+    var message = msg;
     process(message);
     return;
 });
@@ -34,5 +34,17 @@ function processExtensionMessage(message) {
 
 function addMockData() {
     var mockData = new MockData();
-    console.log(mockData.crateMockData());
+    mockData.crateMockData()
+        .then((resp)=> {
+            runtimeSendMessage(resp);
+        }).catch((e)=> {
+        console.error(e);
+    });
+}
+
+function runtimeSendMessage(data) {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, data, function(response) {
+        });
+    });
 }

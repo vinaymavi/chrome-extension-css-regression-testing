@@ -63,13 +63,14 @@ function sendPostMessage(dataStr) {
     window.postMessage(dataStr, '*');
 }
 
-function runtimeSendMessage(data){
-    chrome.runtime.sendMessage(null, JSON.stringify(data));
+function runtimeSendMessage(data) {
+    chrome.runtime.sendMessage(null, data);
 }
 
 chrome.runtime.onMessage.addListener((msg, sender, resp)=> {
-    console.log(msg);
-    console.log(sender);
-    console.log(resp);
+    var data = {msg: msg};
+    data.from = FROM;
+    data.type = TYPE_MOCK_DATA;
+    sendPostMessage(JSON.stringify(data));
     return;
 });
